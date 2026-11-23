@@ -120,7 +120,12 @@
 
   function send(rec) {
     if (!cfg.rsvpEndpoint) return Promise.resolve();
+    // sendBeacon survives the page being backgrounded when WhatsApp opens on a phone.
     // text/plain avoids a CORS preflight, which Google Apps Script web apps don't answer.
+    if (navigator.sendBeacon) {
+      var queued = navigator.sendBeacon(cfg.rsvpEndpoint, new Blob([JSON.stringify(rec)], { type: 'text/plain;charset=utf-8' }));
+      if (queued) return Promise.resolve();
+    }
     return fetch(cfg.rsvpEndpoint, {
       method: 'POST',
       mode: 'no-cors',
