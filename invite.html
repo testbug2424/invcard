@@ -109,6 +109,12 @@
 
         <p id="rsvp-error" class="rsvp__error" role="alert" hidden></p>
 
+        <div id="wa-fallback" role="alert" style="display:flex;flex-direction:column;gap:10px;text-align:center" hidden>
+          <p class="rsvp__error" style="margin:0">The signal got lost in the jungle. Your file didn't reach us.</p>
+          <a id="wa-fallback-link" class="btn" href="#" target="_blank" rel="noopener" style="min-height:52px;font-size:14px">SEND BY WHATSAPP INSTEAD</a>
+          <p style="margin:0;font-size:15px;color:var(--blush)">Or tap Submit again to retry.</p>
+        </div>
+
         <button id="rsvp-submit" type="submit" class="btn rsvp__submit" hidden>SUBMIT YOUR FILE</button>
       </form>
 
@@ -140,7 +146,7 @@
       <div class="slash" style="width:120px;height:8px"></div>
       <div class="script" style="font-size:32px" data-out="title"></div>
       <p data-out="msg"></p>
-      <p id="wa-note" style="font-style:normal;font-size:16px;color:var(--gold)" hidden>WhatsApp has opened with your answer. Tap <strong>Send</strong> to seal it.</p>
+      <p id="wa-note" style="font-style:normal;font-size:16px;color:var(--gold)" hidden>In WhatsApp, tap <strong>Send</strong> to seal it.</p>
       <div id="modal-poison" class="modal__poison" hidden>
         <div class="caps muted" style="font-size:12px">YOUR POISON · <span data-out="letter"></span></div>
         <div class="script" style="font-size:32px" data-out="pname"></div>

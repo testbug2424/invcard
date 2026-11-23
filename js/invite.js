@@ -74,7 +74,7 @@
 
   try {
     var saved = JSON.parse(localStorage.getItem(STORE) || 'null');
-    if (saved && saved.name) { state.name = saved.name; state.rsvp = saved.rsvp; state.poison = saved.poison; state.locked = true; }
+    if (saved && saved.name) { state.name = saved.name; state.rsvp = saved.rsvp; state.poison = saved.poison; state.via = saved.via; state.locked = true; }
   } catch (e) {}
 
   function setError(msg) { err.textContent = msg || ''; err.hidden = !msg; }
@@ -83,8 +83,8 @@
     form.hidden = state.locked;
     $('#sealed').hidden = !state.locked;
     $('#reset').hidden = !(cfg.testMode && state.locked);
-    $('#wa-again').hidden = !(waDigits() && state.locked);
-    $('#wa-note').hidden = !waDigits();
+    $('#wa-again').hidden = !(state.locked && state.via === 'whatsapp');
+    $('#wa-note').hidden = state.via !== 'whatsapp';
 
     $$('.choice').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-rsvp') === state.rsvp)); });
     $('#poison-group').hidden = state.rsvp !== 'in';
@@ -118,20 +118,23 @@
     b.addEventListener('click', function () { state.poison = b.getAttribute('data-poison'); setError(''); render(); });
   });
 
+  // Sheet first. A readable "ok" from the Apps Script is the only thing counted as success:
+  // anything else (offline, timeout, script error, wrong sharing setting) rejects.
+  // Plain fetch (CORS mode) with a text/plain body needs no preflight, and Apps Script
+  // replies with Access-Control-Allow-Origin: *, so the reply can be read.
   function send(rec) {
-    if (!cfg.rsvpEndpoint) return Promise.resolve();
-    // sendBeacon survives the page being backgrounded when WhatsApp opens on a phone.
-    // text/plain avoids a CORS preflight, which Google Apps Script web apps don't answer.
-    if (navigator.sendBeacon) {
-      var queued = navigator.sendBeacon(cfg.rsvpEndpoint, new Blob([JSON.stringify(rec)], { type: 'text/plain;charset=utf-8' }));
-      if (queued) return Promise.resolve();
-    }
+    if (!cfg.rsvpEndpoint) return Promise.reject(new Error('no endpoint'));
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
     return fetch(cfg.rsvpEndpoint, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(rec)
-    });
+      body: JSON.stringify(rec),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) { return res.text(); }).then(function (txt) {
+      clearTimeout(timer);
+      if (String(txt).trim() !== 'ok') throw new Error('unexpected reply');
+    }, function (err) { clearTimeout(timer); throw err; });
   }
 
   function waDigits() { return String(cfg.whatsappNumber || '').replace(/\D/g, ''); }
@@ -145,7 +148,29 @@
     return 'https://wa.me/' + waDigits() + '?text=' + encodeURIComponent(lines.join('\n'));
   }
 
-  // Re-open WhatsApp from the sealed box, in case the guest didn't press Send.
+  function seal(rec) {
+    try { localStorage.setItem(STORE, JSON.stringify(rec)); } catch (e2) {}
+    state.sending = false;
+    state.locked = true;
+    state.via = rec.via;
+    state.poison = rec.poison;
+    pending = null;
+    $('#wa-fallback').hidden = true;
+    render();
+    openModal();
+  }
+
+  var pending = null;
+
+  // Fallback: shown only when the sheet didn't confirm. It is a real link the guest taps,
+  // so phones don't block it the way they block pop-ups opened after a delay.
+  $('#wa-fallback-link').addEventListener('click', function () {
+    if (!pending) return;
+    pending.via = 'whatsapp';
+    seal(pending);
+  });
+
+  // Re-open WhatsApp from the sealed box, for guests who went the WhatsApp route.
   $('#wa-again').addEventListener('click', function () {
     try {
       var rec = JSON.parse(localStorage.getItem(STORE) || 'null');
@@ -171,22 +196,24 @@
     };
     state.name = n;
     state.sending = true;
+    $('#wa-fallback').hidden = true;
+    setError('');
     render();
 
-    // Must run synchronously inside the click, or mobile browsers block it.
-    if (waDigits()) window.open(whatsappUrl(rec), '_blank');
-
     send(rec).then(function () {
-      try { localStorage.setItem(STORE, JSON.stringify(rec)); } catch (e2) {}
-      state.sending = false;
-      state.locked = true;
-      state.poison = rec.poison;
-      render();
-      openModal();
+      rec.via = 'sheet';
+      seal(rec);
     }, function () {
       state.sending = false;
       render();
-      setError('The signal got lost in the jungle. Check your connection and try again.');
+      if (waDigits()) {
+        pending = rec;
+        $('#wa-fallback-link').href = whatsappUrl(rec);
+        $('#wa-fallback').hidden = false;
+        $('#wa-fallback-link').focus();
+      } else {
+        setError('The signal got lost in the jungle. Check your connection and try again.');
+      }
     });
   });
 
@@ -210,7 +237,9 @@
 
   $('#reset').addEventListener('click', function () {
     try { localStorage.removeItem(STORE); } catch (e) {}
-    state = { name: '', rsvp: null, poison: null, locked: false, sending: false };
+    state = { name: '', rsvp: null, poison: null, locked: false, sending: false, via: null };
+    pending = null;
+    $('#wa-fallback').hidden = true;
     nameInput.value = '';
     setError('');
     render();

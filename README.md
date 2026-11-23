@@ -11,7 +11,7 @@ Online version of the Feral Affair birthday invitation card. Static site — pla
 Everything changeable is in [`js/config.js`](js/config.js): passcode, date/time/venue, RSVP deadline, meal options, the six baddies (names, titles, optional photo URLs), `surpriseMode` (hide names/photos), `testMode`.
 
 ## Before you share the link
-1. **Set `whatsappNumber`** (simplest: RSVPs arrive as WhatsApp messages), and/or **deploy the RSVP script** — see [`docs/rsvp-google-sheet.md`](docs/rsvp-google-sheet.md) and paste the `/exec` URL into `rsvpEndpoint`. Without it, answers never leave the guest's phone.
+1. **Deploy the RSVP script** (RSVPs go to the Google Sheet; `whatsappNumber` is only the fallback when the sheet can't be reached) — see [`docs/rsvp-google-sheet.md`](docs/rsvp-google-sheet.md) and paste the `/exec` URL into `rsvpEndpoint`. Without it, answers never leave the guest's phone.
 2. Set `testMode: false`.
 3. Set `mapsUrl` to the venue's Google Maps share link (Maps → Share → Copy link). Until then the OPEN MAPS button stays hidden.
 
