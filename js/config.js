@@ -20,7 +20,12 @@ window.INVITE_CONFIG = {
     day: 'Wednesday',
     time: '12.30 PM',
     venue: 'The Ester Lair',
-    mapsQuery: 'Ester Room',
+    // Street address shown under the venue name (optional).
+    address: '',
+    // Exact Google Maps link: open the place in Google Maps → Share → Copy link
+    // (e.g. https://maps.app.goo.gl/xxxx). Takes priority over `address`.
+    // If both are empty the OPEN MAPS button is hidden — better than a wrong pin.
+    mapsUrl: '',
     rsvpBy: 'Tuesday, 1 December'
   },
 

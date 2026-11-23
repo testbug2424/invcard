@@ -22,7 +22,21 @@
 
   /* ---------- event details ---------- */
   $$('[data-bind]').forEach(function (el) { el.textContent = cfg.event[el.getAttribute('data-bind')] || ''; });
-  $('#maps').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(cfg.event.mapsQuery || cfg.event.venue);
+  var ev = cfg.event;
+  var mapsHref = ev.mapsUrl
+    || (ev.address ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.venue + ', ' + ev.address) : '');
+  if (mapsHref) {
+    $('#maps').href = mapsHref;
+  } else {
+    // No reliable location yet: never send guests to a guessed pin.
+    $('#maps').hidden = true;
+    $('#maps').parentNode.style.gridTemplateColumns = '1fr';
+  }
+  if (ev.address) {
+    var addr = document.createElement('small');
+    addr.textContent = ev.address;
+    $('[data-bind="venue"]').parentNode.appendChild(addr);
+  }
 
   /* ---------- baddies of the month ---------- */
   var veiled = !!cfg.surpriseMode;

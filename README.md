@@ -13,7 +13,7 @@ Everything changeable is in [`js/config.js`](js/config.js): passcode, date/time/
 ## Before you share the link
 1. **Wire RSVPs to a Google Sheet** — see [`docs/rsvp-google-sheet.md`](docs/rsvp-google-sheet.md). Without it, answers never leave the guest's phone.
 2. Set `testMode: false`.
-3. Check the maps link opens the right place (`mapsQuery`).
+3. Set `mapsUrl` to the venue's Google Maps share link (Maps → Share → Copy link). Until then the OPEN MAPS button stays hidden.
 
 ## Run locally
 ```bash
