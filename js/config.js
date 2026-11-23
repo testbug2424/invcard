@@ -31,7 +31,7 @@ window.INVITE_CONFIG = {
 
   // RSVP backend. Leave empty to store answers only in the guest's own browser
   // (the host will NOT receive them). See docs/rsvp-google-sheet.md.
-  rsvpEndpoint: '',
+  rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbwRF-QZkTORGVdDznB2oT3bvpk92L0hH47XxFTLvLSHggzwrR2oJp8g_7EPVNFJ-JJzCA/exec',
 
   // Host's WhatsApp number, country code first, digits only (e.g. '60123456789').
   // When set, submitting opens WhatsApp with the guest's answer ready to send to this number.
