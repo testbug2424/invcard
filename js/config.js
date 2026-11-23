@@ -36,7 +36,7 @@ window.INVITE_CONFIG = {
   // Host's WhatsApp number, country code first, digits only (e.g. '60123456789').
   // When set, submitting opens WhatsApp with the guest's answer ready to send to this number.
   // Works with or without rsvpEndpoint.
-  whatsappNumber: '',
+  whatsappNumber: '601124198132',
 
   poisons: {
     A: { name: 'Black Truffle Seduction', dish: 'Truffle mushroom pasta' },
