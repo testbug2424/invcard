@@ -33,6 +33,11 @@ window.INVITE_CONFIG = {
   // (the host will NOT receive them). See docs/rsvp-google-sheet.md.
   rsvpEndpoint: '',
 
+  // Host's WhatsApp number, country code first, digits only (e.g. '60123456789').
+  // When set, submitting opens WhatsApp with the guest's answer ready to send to this number.
+  // Works with or without rsvpEndpoint.
+  whatsappNumber: '',
+
   poisons: {
     A: { name: 'Black Truffle Seduction', dish: 'Truffle mushroom pasta' },
     B: { name: 'The Wild Hunt', dish: 'Herb-crusted chicken with seasonal vegetables' }

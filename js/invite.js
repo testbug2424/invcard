@@ -83,6 +83,8 @@
     form.hidden = state.locked;
     $('#sealed').hidden = !state.locked;
     $('#reset').hidden = !(cfg.testMode && state.locked);
+    $('#wa-again').hidden = !(waDigits() && state.locked);
+    $('#wa-note').hidden = !waDigits();
 
     $$('.choice').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-rsvp') === state.rsvp)); });
     $('#poison-group').hidden = state.rsvp !== 'in';
@@ -127,6 +129,25 @@
     });
   }
 
+  function waDigits() { return String(cfg.whatsappNumber || '').replace(/\D/g, ''); }
+
+  function whatsappUrl(rec) {
+    var lines = ['Feral Affair RSVP', 'Name: ' + rec.name, 'Attending: ' + (rec.rsvp === 'in' ? 'YES' : 'NO')];
+    if (rec.rsvp === 'in' && rec.poison) {
+      var p = cfg.poisons[rec.poison];
+      lines.push('Poison ' + rec.poison + ': ' + p.name + ' (' + p.dish + ')');
+    }
+    return 'https://wa.me/' + waDigits() + '?text=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  // Re-open WhatsApp from the sealed box, in case the guest didn't press Send.
+  $('#wa-again').addEventListener('click', function () {
+    try {
+      var rec = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (rec) window.open(whatsappUrl(rec), '_blank');
+    } catch (e) {}
+  });
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (state.locked || state.sending) return;
@@ -146,6 +167,9 @@
     state.name = n;
     state.sending = true;
     render();
+
+    // Must run synchronously inside the click, or mobile browsers block it.
+    if (waDigits()) window.open(whatsappUrl(rec), '_blank');
 
     send(rec).then(function () {
       try { localStorage.setItem(STORE, JSON.stringify(rec)); } catch (e2) {}
