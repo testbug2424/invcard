@@ -25,7 +25,7 @@ window.INVITE_CONFIG = {
     // Exact Google Maps link: open the place in Google Maps → Share → Copy link
     // (e.g. https://maps.app.goo.gl/xxxx). Takes priority over `address`.
     // If both are empty the OPEN MAPS button is hidden — better than a wrong pin.
-    mapsUrl: '',
+    mapsUrl: 'https://share.google/PDDKvQkezFKTY13zH',
     rsvpBy: 'Tuesday, 1 December'
   },
 
