@@ -22,7 +22,7 @@ python3 -m http.server 8080
 Open http://localhost:8080.
 
 ## Deploy (GitHub Pages)
-Settings → Pages → Source: *Deploy from a branch* → `main` / root. Then generate the QR code from the Pages URL.
+Settings → Pages → Source: *Deploy from a branch* → `main` / root. Live URL: https://testbug2424.github.io/invcard/ — generate the QR code from that. No custom domain (no `CNAME` file); `404.html` redirects to `/invcard/`, so if you add a domain later, change that path to `/`.
 
 ## Security note
 The passcode is checked in the browser. Anyone who reads the page source can bypass it. It keeps out casual visitors, nothing more — don't put anything genuinely private on these pages.
