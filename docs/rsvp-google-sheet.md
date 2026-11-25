@@ -18,5 +18,5 @@ Sheet: [Feral Affair RSVPs](https://docs.google.com/spreadsheets/d/1MO4fREX8IL7g
 
 ## Notes
 - Editing the script later needs **Deploy → Manage deployments → Edit → New version**, or the old code keeps running.
-- The page can't read Apps Script's reply (`no-cors`), so it confirms when the request is sent. A dropped connection still shows an error.
+- The page waits for the script to reply `ok` before it counts an RSVP as received; anything else (offline, timeout, script error) offers the WhatsApp fallback.
 - "One submission only" is per browser. The Summary tab's "Repeat submissions" counter flags names that appear twice.
