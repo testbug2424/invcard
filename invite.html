@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0D0B0A">
+<meta name="robots" content="noindex, nofollow">
+<title>The Baddie Files – Feral Affair</title>
+<script>
+  // Soft gate: send visitors who skipped the passcode back to the cover.
+  try { if (sessionStorage.getItem('feral-affair-unlocked') !== '1') location.replace('index.html'); } catch (e) {}
+</script>
+<link rel="icon" href="assets/emblem.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="leo-bg" aria-hidden="true"></div>
+<div class="petals" aria-hidden="true"><span class="petal"></span><span class="petal r"></span><span class="petal g"></span><span class="petal r"></span><span class="petal"></span><span class="petal g"></span><span class="petal"></span><span class="petal r"></span><span class="petal g"></span><span class="petal r"></span><span class="petal"></span><span class="petal g"></span><span class="petal"></span><span class="petal r"></span><span class="petal g"></span><span class="petal r"></span><span class="petal"></span><span class="petal g"></span><span class="petal"></span><span class="petal r"></span><span class="petal g"></span><span class="petal r"></span><span class="petal"></span><span class="petal g"></span><span class="petal"></span><span class="petal r"></span><span class="petal g"></span><span class="petal r"></span><span class="petal"></span><span class="petal g"></span><span class="petal"></span><span class="petal r"></span><span class="petal g"></span><span class="petal r"></span><span class="petal"></span><span class="petal g"></span></div>
+
+<div class="page">
+<main class="sheet">
+<div class="sheet__frame">
+
+  <header class="hero">
+    <div class="ember-wrap" style="width:166px;height:166px"><div class="ember-glow" aria-hidden="true"></div><img class="ember-img" src="assets/emblem.webp" alt="Glowing gold clawed paw in a burgundy and gold fire ring" width="130" height="130"><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span><span class="spark" aria-hidden="true"></span></div>
+    <div class="script" style="font-size:44px;line-height:1.05">Confidential</div>
+    <h1>Feral Affair</h1>
+    <div class="slash"></div>
+    <div class="caps" style="font-size:13px;margin-top:8px">WE ARE BORN WILD</div>
+  </header>
+
+  <section class="letter" aria-label="Invitation letter">
+    <p class="italic gold" style="font-size:24px">Dear Baddies,</p>
+    <p>After careful observation and an extremely exclusive selection process, we have identified a group of individuals who possess the confidence, the attitude and the undeniable baddie energy required for a very special occasion.</p>
+    <p class="italic muted">And guess what?</p>
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <p class="script" style="font-size:46px">You made the list</p>
+      <div class="slash" style="width:180px"></div>
+    </div>
+    <p>You have officially been selected to attend an exclusive, private gathering.</p>
+  </section>
+
+  <section id="details" class="box" aria-labelledby="den-title">
+    <div class="box__frame">
+      <h2 id="den-title" class="section-title" style="text-align:center;margin-bottom:10px">THE DEN</h2>
+      <dl class="details">
+        <div class="row"><dt>DATE</dt><dd><span data-bind="date"></span><small data-bind="day"></small></dd></div>
+        <div class="row"><dt>TIME</dt><dd data-bind="time"></dd></div>
+        <div class="row"><dt>VENUE</dt><dd><span data-bind="venue"></span></dd></div>
+      </dl>
+      <div class="btn-pair">
+        <a id="maps" class="btn" href="#" target="_blank" rel="noopener">OPEN MAPS</a>
+        <a class="btn btn--ghost" href="#rsvp">RSVP NOW</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pack" aria-labelledby="pack-title">
+    <h2 id="pack-title" class="section-title">BADDIES OF THE MONTH</h2>
+    <p class="italic" style="margin:0;font-size:21px">Crowned for November &amp; December. Six birthdays, six titles, one pack.</p>
+    <ul id="baddies" class="pack__grid"></ul>
+  </section>
+
+  <section class="hunt" aria-labelledby="hunt-title">
+    <span data-paw="32"></span>
+    <h2 id="hunt-title" class="section-title">THE HUNT</h2>
+    <p>Put the deadlines down and let the wild out. We gather to crown six untamed baddies as they level up another year.</p>
+    <p class="script" style="font-size:30px;line-height:1.2">Come hungry. Come fierce.</p>
+    <p>Make it an afternoon the pack never forgets.</p>
+    <p class="italic muted" style="font-size:18px">Your dress code hides under the scratch panel on your card.</p>
+  </section>
+
+  <section id="rsvp" class="box rsvp" aria-labelledby="rsvp-title">
+    <div class="box__frame">
+      <div class="rsvp__head">
+        <h2 id="rsvp-title" class="script" style="margin:0;font-size:42px;font-weight:400">Seal your fate</h2>
+        <p>Your seat is reserved. Confirm by <span data-bind="rsvpBy"></span>. One submission only.</p>
+      </div>
+
+      <form id="rsvp-form" novalidate>
+        <div class="stack">
+          <label for="agent">Your name</label>
+          <input id="agent" class="field" type="text" placeholder="Full name" autocomplete="name" required>
+        </div>
+
+        <div class="btn-pair" style="margin-top:0" role="group" aria-label="Attendance">
+          <button type="button" class="btn choice" data-rsvp="in" aria-pressed="false">I'M IN</button>
+          <button type="button" class="btn choice choice--out" data-rsvp="out" aria-pressed="false">CAN'T MAKE IT</button>
+        </div>
+
+        <fieldset id="poison-group" class="poison-group" hidden>
+          <legend>
+            <span class="caps" style="font-size:14px;letter-spacing:4px;color:var(--gold)">PICK YOUR POISON</span>
+            <span class="italic" style="font-size:17px;color:var(--blush)">Choose wisely. There is no antidote.</span>
+          </legend>
+          <button type="button" class="poison" data-poison="A" aria-pressed="false">
+            <span class="poison__tag">POISON A</span>
+            <span class="poison__name"></span>
+            <span class="poison__dish"></span>
+          </button>
+          <button type="button" class="poison" data-poison="B" aria-pressed="false">
+            <span class="poison__tag">POISON B</span>
+            <span class="poison__name"></span>
+            <span class="poison__dish"></span>
+          </button>
+        </fieldset>
+
+        <p id="rsvp-error" class="rsvp__error" role="alert" hidden></p>
+
+        <div id="wa-fallback" role="alert" style="display:flex;flex-direction:column;gap:10px;text-align:center" hidden>
+          <p class="rsvp__error" style="margin:0">The signal got lost in the jungle. Your file didn't reach us.</p>
+          <a id="wa-fallback-link" class="btn" href="#" target="_blank" rel="noopener" style="min-height:52px;font-size:14px">SEND BY WHATSAPP INSTEAD</a>
+          <p style="margin:0;font-size:15px;color:var(--blush)">Or tap Submit again to retry.</p>
+        </div>
+
+        <button id="rsvp-submit" type="submit" class="btn rsvp__submit" hidden>SUBMIT YOUR FILE</button>
+      </form>
+
+      <div id="sealed" class="sealed" role="status" hidden>
+        <div class="caps" style="font-size:13px;letter-spacing:4px;color:var(--gold)">FILE SEALED</div>
+        <div class="script" style="font-size:30px" data-out="title"></div>
+        <p class="italic" style="font-size:18px" data-out="msg"></p>
+        <p class="muted" style="margin-top:4px;font-size:15px">Locked in. One file per baddie, no take-backs.</p>
+        <button id="wa-again" type="button" class="btn btn--ghost" style="margin-top:10px;min-height:44px;font-size:13px" hidden>DIDN'T SEND? OPEN WHATSAPP AGAIN</button>
+        <button id="reset" type="button" class="reset" hidden>RESET SUBMISSION (TEST MODE)</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>You didn't find the pack.<br>The pack found you.</p>
+    <div class="ember-wrap" aria-hidden="true" style="width:116px;height:116px"><div class="ember-glow"></div><img class="ember-img" src="assets/emblem.webp" alt="" width="84" height="84"><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span></div>
+    <div class="motto">STAY CURIOUS. STAY FIERCE.</div>
+  </footer>
+
+</div>
+</main>
+</div>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="sealed-title" hidden>
+  <div class="modal__card">
+    <div class="modal__frame">
+      <div id="sealed-title" class="caps" style="font-weight:600;font-size:18px;letter-spacing:5px;color:var(--gold)">FILE SEALED</div>
+      <div class="slash" style="width:120px;height:8px"></div>
+      <div class="script" style="font-size:32px" data-out="title"></div>
+      <p data-out="msg"></p>
+      <p id="wa-note" style="font-style:normal;font-size:16px;color:var(--gold)" hidden>In WhatsApp, tap <strong>Send</strong> to seal it.</p>
+      <div id="modal-poison" class="modal__poison" hidden>
+        <div class="caps muted" style="font-size:12px">YOUR POISON · <span data-out="letter"></span></div>
+        <div class="script" style="font-size:32px" data-out="pname"></div>
+        <div class="italic" style="font-size:17px;color:var(--cream-soft)" data-out="pdish"></div>
+      </div>
+      <button id="modal-close" type="button" class="btn" style="margin-top:10px;min-height:52px;font-size:14px">BACK TO THE INVITATION</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/invite.js"></script>
+</body>
+</html>
